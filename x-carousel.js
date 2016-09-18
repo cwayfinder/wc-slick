@@ -45,15 +45,16 @@ customElements.define('x-carousel', class XCarousel extends HTMLElement {
     Array.from(this.children).forEach(item => item.hidden = true);
 
     this._currentIndex = 0;
-    this._showSelected();
+    this.children[this._currentIndex].hidden = false;
 
     this.play();
   }
 
   play() {
+    const delay = this.getAttribute('timeout') || 1;
     this._timer = setInterval(() => {
       this.next();
-    }, 2000);
+    }, delay * 1000);
     this.dispatchEvent(new CustomEvent('started', { bubbles: true, composed: true }));
   }
 
